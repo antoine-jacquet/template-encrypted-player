@@ -1,0 +1,29 @@
+# Penalty Shootout Game Rule
+
+Let N denote the finite set of active players. Server time evolves in discrete turns $(t = 1, 2, …)$. During each turn the platform inspects every unordered pair $(i, j)$ with $i ≠ j$. For the pair $(i, j)$ we read the event as “player i shoots on player j”; note that the reverse pairing $(j, i)$ is also evaluated in the same turn, hence every player $i$ shoots $N-1$ penalties and keeps $N-1$ penalties in each turn.
+
+## State space
+
+The state at turn $t$ is the set $H(t) = \{h_1, …, h_t\}$. Each $h_r$ contains one entry per player identifier, and each player entry holds three maps:
+
+- `shoot`: opponents → direction ($0$, $1$, or $2$)
+- `keep`: opponents → direction ($0$, $1$, or $2$)
+- `outcome`: opponents → `goal' $1$ or $0$
+
+Until a duel resolves, the corresponding row in `outcome` remains empty.
+
+## Action space
+
+At the start of turn t each player i submits an action consisting of two maps:
+
+- shoot map: opponents → ${0, 1, 2}$
+- keep map: opponents → ${0, 1, 2}$
+
+The labels $0, 1, 2$ correspond respectively to left, centre, and right.
+
+## Penalty mechanism
+
+Let $P$ be the 3 × 3 success-probability matrix whose rows index shooting directions and columns index keeping directions. The matrix satisfies the dominance property $P[d, d] < P[u, v]$ for every direction $d$ and any ordered pair $(u, v)$ with $u \neq v$. Intuitively, a shot aimed away from the keeper’s chosen direction strictly improves the conversion probability relative to a shot that matches it.
+
+During round $t$ a duel between shooter $i$ and keeper $j$ is determined by their chosen directions. Let $d$ be the shooter’s direction against $j$ and $u$ the keeper’s defence against i. The shot succeeds with probability $P[d, u]$; success yields a goal for $i$, otherwise $i$ is denied and $j$ records a save. If a goal happens the shooter gets reward $1$ and the keeper $0$, otherwise the shooter gets $0$ and the keeper $1.$
+
