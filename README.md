@@ -32,7 +32,7 @@ Use this template when you want a public repository (free GitHub Actions minutes
       - In **Settings → Secrets and variables → Actions**, add:
         - `GPG_PRIVATE_KEY_B64` – paste the contents of `private-key.asc.b64`
         - `GPG_PASSPHRASE` – the passphrase you entered in step 3b
-      - **Security:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
+      - **Important:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
    
    d. **Commit encrypted strategy:**
       - Add only the encrypted file: `git add strategy.py.gpg`
