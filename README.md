@@ -120,26 +120,7 @@ where
 
 `bot.py` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
 
-## 6. Local testing
-
-Keep `strategy.py` local-only while you experiment:
-
-```bash
-export SERVER_URL=...
-export GAME_TOKEN=...
-export PLAYER_NAME=...
-python bot.py run
-```
-
-Ensure the decrypted `strategy.py` file sits next to `bot.py`. Before committing, restore or stash any changes to `strategy.py` so they do not leak into git.
-
-## 7. Updating your strategy
-
-1. Edit `strategy.py` and test locally (`python bot.py run`).
-2. Re-encrypt: `python scripts/setup_encryption.py --recipient "YOUR NAME (penalty bot)"`
-3. Commit and push the new `strategy.py.gpg` (after restoring/stashing the plaintext `strategy.py`).
-
-## 8. Safety notes
+## 6. Safety notes
 
 - Never commit the plaintext `strategy.py` or raw private key files (`private-key.asc`, `private-key.asc.b64`).
 - Rotate your GPG key periodically and refresh the GitHub secrets.
