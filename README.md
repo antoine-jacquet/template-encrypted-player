@@ -18,29 +18,29 @@ Use this template when you want a public repository (free GitHub Actions minutes
        - `Workflows: Read and write` (required - for workflow management)
        - `Contents: Read and write` (required - for repository access)
 
-3. **Set up GPG encryption** (one-time setup):
+3. **Set up GPG encryption and encrypt your strategy:**
    
-   a. **Create a GPG key and export it:**
-   ```bash
-   gpg --quick-generate-key "Your Name" rsa4096 sign,encrypt 1y
-   gpg --armor --export-secret-keys "Your Name" > private-key.asc
-   base64 private-key.asc > private-key.asc.b64
-   ```
-      Replace `"Your Name"` with your actual name. When creating the key, enter a passphrase (remember it for step 3b).
+   a. **Edit your strategy:**
+      - Edit `strategy.py` with your strategy logic
    
-   b. **Add GPG secrets to GitHub:**
+   b. **Encrypt your strategy:**
+      - Run: `python scripts/setup_encryption.py --recipient "Your Name"`
+      - Replace `"Your Name"` with your actual name (e.g., `"John Doe"`)
+      - When prompted, enter a passphrase (remember it - you'll need it for step 3c)
+      - This creates:
+        - `strategy.py.gpg` (encrypted file - commit this)
+        - `private-key.asc.b64` (base64-encoded GPG key - needed for GitHub secrets)
+   
+   c. **Add GPG secrets to GitHub:**
       - In **Settings → Secrets and variables → Actions**, add:
         - `GPG_PRIVATE_KEY_B64` – paste the contents of `private-key.asc.b64`
-        - `GPG_PASSPHRASE` – the passphrase you entered when creating the GPG key
+        - `GPG_PASSPHRASE` – the passphrase you entered in step 3b
       - **Security:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
-
-4. **Encrypt your strategy and commit:**
-   - Edit `strategy.py` with your strategy logic
-   - Run: `python scripts/setup_encryption.py --recipient "Your Name"` (use the same name you used in step 3a)
-   - This creates `strategy.py.gpg` (encrypted) and `private-key.asc.b64` (if you need to update secrets)
-   - **Important:** Only commit `strategy.py.gpg` - do NOT commit changes to `strategy.py`
-   - Run: `git add strategy.py.gpg` (add only the encrypted file)
-   - Run: `git commit -m "Add encrypted strategy" && git push`
+   
+   d. **Commit encrypted strategy:**
+      - **Important:** Only commit `strategy.py.gpg` - do NOT commit changes to `strategy.py`
+      - Run: `git add strategy.py.gpg` (add only the encrypted file)
+      - Run: `git commit -m "Add encrypted strategy" && git push`
 
 ## 2. Registration
 
