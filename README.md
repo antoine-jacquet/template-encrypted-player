@@ -32,10 +32,10 @@ Use this template when you want a public repository (free GitHub Actions minutes
         - `GPG_PASSPHRASE` – the passphrase you entered when creating the GPG key
       - **Security:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
 
-4. **Encrypt your strategy:**
-   - Edit `strategy.py` with your strategy logic
+4. **Encrypt your strategy** (required):
+   - Edit `strategy.py` with your strategy logic (or use the default random strategy)
    - Run: `python scripts/setup_encryption.py --recipient "YOUR NAME (penalty bot)"`
-   - This creates `strategy.py.gpg` (the encrypted file you'll commit)
+   - This creates `strategy.py.gpg` encrypted with your GPG key (replace the template placeholder)
    - **Important:** Stash or restore `strategy.py` before committing so the plaintext never lands in git
 
 5. **Commit and push:**
