@@ -20,11 +20,11 @@ Use this template when you want a public repository (free GitHub Actions minutes
    
    a. **Create a GPG key and export it:**
    ```bash
-   gpg --quick-generate-key "YOUR NAME (penalty bot)" rsa4096 sign,encrypt 1y
-   gpg --armor --export-secret-keys "YOUR NAME (penalty bot)" > private-key.asc
+   gpg --quick-generate-key "Your Name (penalty bot)" rsa4096 sign,encrypt 1y
+   gpg --armor --export-secret-keys "Your Name (penalty bot)" > private-key.asc
    base64 private-key.asc > private-key.asc.b64
    ```
-      When creating the key, enter a passphrase (remember it for step 3b).
+      Replace `"Your Name (penalty bot)"` with your actual name (e.g., `"John Doe (penalty bot)"`). When creating the key, enter a passphrase (remember it for step 3b).
    
    b. **Add GPG secrets to GitHub:**
       - In **Settings → Secrets and variables → Actions**, add:
