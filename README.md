@@ -40,7 +40,9 @@ Use this template when you want a public repository (free GitHub Actions minutes
    - Only commit `strategy.py.gpg`, never commit `strategy.py`
 
 5. **Commit and push:**
-   - Commit `strategy.py.gpg` and template files (NOT `strategy.py` or key files)
+   - Commit `strategy.py.gpg` (the encrypted strategy file)
+   - Commit all other template files (`.github/workflows/`, `register.py`, `bot.py`, `requirements.txt`, etc.)
+   - **Do NOT commit:** `strategy.py` (plaintext), `private-key.asc`, or `private-key.asc.b64`
    - Push to your forked repository
 
 ## 2. Registration
