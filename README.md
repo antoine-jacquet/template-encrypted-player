@@ -96,8 +96,6 @@ The scripts interact with the game server via REST API endpoints:
   In this snapshot, `state[0]["player-id-A"]["player-id-B"]` summarizes the penalty with A shooting and B keeping in the first turn: A shot right (`2`), B dived left (`0`), and `outcome` is `true` (goal scored).
 - `turnId`: the current turn number (metadata describing where the match is).
 
-Store or inspect this data to drive smarter strategies.
-
 ## 5. Building the action payload
 
 Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For example, if the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
