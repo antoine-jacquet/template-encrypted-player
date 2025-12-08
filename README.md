@@ -113,6 +113,4 @@ where
 - `keep` lists the direction you will guard against each opponent.
 - Opponent IDs come straight from `playerIds`/`opponentsIds` in the `/status` payload.
 
-`bot.py` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
-
 Once you add your secrets and encrypted payload, the server will automatically trigger your workflow after each turn, allowing you to keep your repository public (free GitHub Actions) while keeping your strategy private.
