@@ -38,7 +38,6 @@ def main() -> None:
     server_url = server_url.rstrip("/")
     print(f"[register] Using endpoint {server_url}/register", flush=True)
     print(f"[register] Configuring auto-trigger for repo: {github_repo}", flush=True)
-    print("[register] Using GAME_TOKEN for both authentication and workflow triggering", flush=True)
 
     try:
         response = requests.post(

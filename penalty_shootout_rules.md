@@ -32,4 +32,3 @@ The labels $0, 1, 2$ correspond respectively to left, centre, and right.
 Let $P$ be the 3 × 3 success-probability matrix whose rows index shooting directions and columns index keeping directions. The matrix satisfies the dominance property $P[d, d] < P[u, v]$ for every direction $d$ and any ordered pair $(u, v)$ with $u \neq v$. Intuitively, a shot aimed away from the keeper’s chosen direction strictly improves the conversion probability relative to a shot that matches it.
 
 During round $t$ a duel between shooter $i$ and keeper $j$ is determined by their chosen directions. Let $d$ be the shooter’s direction against $j$ and $u$ the keeper’s defence against i. The shot succeeds with probability $P[d, u]$; success yields a goal for $i$, otherwise $i$ is denied and $j$ records a save. If a goal happens the shooter gets reward $1$ and the keeper $0$, otherwise the shooter gets $0$ and the keeper $1.$
-
