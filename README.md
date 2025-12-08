@@ -35,8 +35,9 @@ Use this template when you want a public repository (free GitHub Actions minutes
 4. **Encrypt your strategy and commit:**
    - Edit `strategy.py` with your strategy logic
    - Run: `python scripts/setup_encryption.py --recipient "Your Name (penalty bot)"` (use the same name you used in step 3a)
-   - Run `git restore strategy.py` to remove the plaintext from your working directory
-   - Commit `strategy.py.gpg` and push (do NOT commit `strategy.py`, `private-key.asc`, or `private-key.asc.b64`)
+   - Run: `git restore strategy.py` (removes plaintext from working directory)
+   - Run: `git add strategy.py.gpg` (add only the encrypted file)
+   - Run: `git commit -m "Add encrypted strategy" && git push`
 
 ## 2. Registration
 
