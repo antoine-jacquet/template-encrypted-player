@@ -52,7 +52,22 @@ Register your player by running the registration workflow via GitHub Actions:
 
 Once registered, the server will automatically trigger your workflow after each turn.
 
-## 3. Understanding the `/status` payload
+## 3. What the scripts do
+
+The scripts interact with the game server via REST API endpoints:
+
+- **`register.py`** – Validates required secrets, reads `PLAYER_NAME` from the environment, and sends a POST request to `/register` with your player name and repository information. The server authenticates using your `GAME_TOKEN` and stores your player configuration.
+
+- **`bot.py`** – Executes your game strategy:
+  - Decrypts `strategy.py.gpg` to `strategy.py` (handled by the workflow)
+  - Sends a GET request to `/status?player_name=<PLAYER_NAME>` to retrieve the current game state (turn, opponents, history), where `<PLAYER_NAME>` is the value from your `PLAYER_NAME` secret
+  - Calls your `strategy(state)` function with the game state
+  - Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
+  - Cleans up the decrypted `strategy.py` file
+  
+  Customise your strategy by editing the `strategy(state)` function in `strategy.py` to analyze the game state and return action directions. The function must return the dictionary format described below.
+
+## 4. Understanding the `/status` payload
 
 `/status` responds with a JSON dictionary—`{}` at the very beginning of a fresh game—that contains:
 
@@ -88,7 +103,7 @@ Once registered, the server will automatically trigger your workflow after each 
 
 Store or inspect this data to drive smarter strategies.
 
-## 4. Building the action payload
+## 5. Building the action payload
 
 Your `strategy(state)` function must return a dictionary with two maps, one for shooting and one for keeping. For example, if the server identifies you as `"player-A"` and you face opponents `"player-B"` and `"player-C"`, one admissible return value is
 
@@ -104,20 +119,5 @@ where
 - Opponent IDs come straight from `playerIds`/`opponentsIds` in the `/status` payload.
 
 `bot.py` already turns this dictionary into the HTTP payload, so you do not need to worry about the outer structure—just return the maps above.
-
-## 5. What the scripts do
-
-The scripts interact with the game server via REST API endpoints:
-
-- **`register.py`** – Validates required secrets, reads `PLAYER_NAME` from the environment, and sends a POST request to `/register` with your player name and repository information. The server authenticates using your `GAME_TOKEN` and stores your player configuration.
-
-- **`bot.py`** – Executes your game strategy:
-  - Decrypts `strategy.py.gpg` to `strategy.py` (handled by the workflow)
-  - Sends a GET request to `/status?player_name=<PLAYER_NAME>` to retrieve the current game state (turn, opponents, history), where `<PLAYER_NAME>` is the value from your `PLAYER_NAME` secret
-  - Calls your `strategy(state)` function with the game state
-  - Sends a POST request to `/action` with your chosen `shoot` and `keep` directions for each opponent
-  - Cleans up the decrypted `strategy.py` file
-  
-  Customise your strategy by editing the `strategy(state)` function in `strategy.py` to analyze the game state and return action directions. The function must return the dictionary format described above.
 
 Once you add your secrets and encrypted payload, the server will automatically trigger your workflow after each turn, allowing you to keep your repository public (free GitHub Actions) while keeping your strategy private.
