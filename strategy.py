@@ -40,4 +40,3 @@ def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
         "shoot": {pid: int(direction) for pid, direction in zip(opponents, shoot)},
         "keep": {pid: int(direction) for pid, direction in zip(opponents, keep)},
     }
-

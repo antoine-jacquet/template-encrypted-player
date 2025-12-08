@@ -2,7 +2,7 @@
 
 Use this template when you want a public repository (free GitHub Actions minutes) without publishing your penalty-shootout strategy. Only an encrypted payload lives in git; the workflow decrypts it just-in-time, submits your move, then deletes the plaintext.
 
-**Note:** After forking, copy `strategy.py.example` to `strategy.py` to get started (see step 4 below).
+**Important:** Edit `strategy.py` with your strategy, but **do NOT commit it**. Only commit `strategy.py.gpg` (the encrypted version).
 
 ## 1. Quick Start Checklist
 
@@ -35,11 +35,10 @@ Use this template when you want a public repository (free GitHub Actions minutes
       - **Security:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
 
 4. **Encrypt your strategy and commit:**
-   - Copy `strategy.py.example` to `strategy.py`: `cp strategy.py.example strategy.py`
    - Edit `strategy.py` with your strategy logic
    - Run: `python scripts/setup_encryption.py --recipient "Your Name"` (use the same name you used in step 3a)
    - This creates `strategy.py.gpg` (encrypted) and `private-key.asc.b64` (if you need to update secrets)
-   - Run: `rm strategy.py` (removes plaintext from working directory)
+   - **Important:** Only commit `strategy.py.gpg` - do NOT commit changes to `strategy.py`
    - Run: `git add strategy.py.gpg` (add only the encrypted file)
    - Run: `git commit -m "Add encrypted strategy" && git push`
 
