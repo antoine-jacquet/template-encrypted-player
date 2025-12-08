@@ -2,6 +2,8 @@
 
 Use this template when you want a public repository (free GitHub Actions minutes) without publishing your penalty-shootout strategy. Only an encrypted payload lives in git; the workflow decrypts it just-in-time, submits your move, then deletes the plaintext.
 
+**Note:** After forking, copy `strategy.py.example` to `strategy.py` to get started (see step 4 below).
+
 ## 1. Quick Start Checklist
 
 1. **Fork this repository** – Fork it to your own GitHub account so GitHub Actions can run your player automatically.
