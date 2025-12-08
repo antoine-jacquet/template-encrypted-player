@@ -46,7 +46,6 @@ Register your player by running the registration workflow via GitHub Actions:
 1. Go to **Actions** tab in your repository
 2. Select the **Register Player** workflow from the left sidebar
 3. Click **Run workflow** → **Run workflow** button
-4. The workflow will register your player using the secrets you configured
 
 ## 3. What the scripts do
 
