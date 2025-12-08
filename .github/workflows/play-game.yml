@@ -34,14 +34,14 @@ jobs:
             exit 1
           fi
           echo "$GPG_PRIVATE_KEY_B64" | base64 -d > private-key.asc
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" --import private-key.asc
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import private-key.asc
           rm -f private-key.asc
 
       - name: Decrypt strategy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          gpg --batch --yes --passphrase "$GPG_PASSPHRASE" \
+          echo "$GPG_PASSPHRASE" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
             --output strategy.py \
             --decrypt strategy.py.gpg
 
