@@ -92,13 +92,17 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Generate/refresh the encrypted strategy payload."
     )
-    # Try to get PLAYER_NAME from environment, otherwise require --recipient
+    # Try to get PLAYER_NAME from environment or positional argument
     player_name = os.getenv("PLAYER_NAME", "").strip()
     parser.add_argument(
-        "--recipient",
-        required=not bool(player_name),
+        "player_name",
+        nargs="?",
         default=player_name,
-        help="GPG identity to use (defaults to PLAYER_NAME from environment).",
+        help="Player name to use as GPG key identity (defaults to PLAYER_NAME from environment).",
+    )
+    parser.add_argument(
+        "--recipient",
+        help="GPG identity to use (overrides player_name if provided).",
     )
     parser.add_argument(
         "--expire",
@@ -123,24 +127,27 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     
-    if not args.recipient:
+    # Use --recipient if provided, otherwise use player_name positional arg
+    recipient = args.recipient or args.player_name
+    
+    if not recipient:
         raise SystemExit(
             "GPG recipient name required. Either:\n"
             "  • Set PLAYER_NAME environment variable, or\n"
-            "  • Use --recipient 'Your Name' argument"
+            "  • Pass player name as argument: python scripts/setup_encryption.py 'Your Player Name'"
         )
 
     passphrase = getpass.getpass("GPG passphrase (for new key or future reference): ")
     if not passphrase:
         raise SystemExit("Passphrase cannot be empty.")
 
-    if not key_exists(args.recipient):
-        generate_key(args.recipient, passphrase, args.expire)
+    if not key_exists(recipient):
+        generate_key(recipient, passphrase, args.expire)
     else:
-        print(f"[setup] Reusing existing GPG key '{args.recipient}'", flush=True)
+        print(f"[setup] Reusing existing GPG key '{recipient}'", flush=True)
 
-    encrypt_strategy(args.recipient, args.source, args.output)
-    export_secret_key(args.recipient)
+    encrypt_strategy(recipient, args.source, args.output)
+    export_secret_key(recipient)
 
     print(
         "\nNext steps:\n"

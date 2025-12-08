@@ -22,9 +22,7 @@ Use this template when you want a public repository (free GitHub Actions minutes
       - Edit `strategy.py` with your strategy logic
    
    b. **Encrypt your strategy:**
-      - Set your player name: `export PLAYER_NAME="Your Player Name"` (use the same value as your GitHub secret)
-      - Run: `python scripts/setup_encryption.py`
-      - The script will automatically use `PLAYER_NAME` as the GPG key name
+      - Run: `python scripts/setup_encryption.py "Your Player Name"` (use the same value as your GitHub `PLAYER_NAME` secret)
       - When prompted, enter a passphrase (remember it - you'll need it for step 3c)
       - This creates:
         - `strategy.py.gpg` (encrypted file - commit this)
