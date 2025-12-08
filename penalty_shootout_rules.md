@@ -4,13 +4,19 @@ Let N denote the finite set of active players. Server time evolves in discrete t
 
 ## State space
 
-The state at turn $t$ is the set $H(t) = \{h_1, …, h_t\}$. Each $h_r$ contains one entry per player identifier, and each player entry holds three maps:
+The state at turn $t$ is the set $H(t) = \{h_1, …, h_t\}$. Each $h_r$ contains one entry per player identifier, and each player entry is a mapping of opponents to mini-records:
 
-- `shoot`: opponents → direction ($0$, $1$, or $2$)
-- `keep`: opponents → direction ($0$, $1$, or $2$)
-- `outcome`: opponents → `goal' $1$ or $0$
+```
+player_id → {
+    opponent_id → {
+        "shoot": direction ($0$, $1$, or $2$),
+        "keep": opponent's defence direction ($0$, $1$, or $2$),
+        "outcome": True if the shot scored, False otherwise
+    }
+}
+```
 
-Until a duel resolves, the corresponding row in `outcome` remains empty.
+Until a duel resolves, the `outcome` field is omitted (or `null`). The `keep` field always reports the keeper’s choice (the opponent listed in the key).
 
 ## Action space
 
