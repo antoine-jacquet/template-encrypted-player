@@ -112,5 +112,3 @@ where
 - `shoot` lists the direction (integers `0`, `1`, or `2`) you will shoot against each opponent.
 - `keep` lists the direction you will guard against each opponent.
 - Opponent IDs come straight from `playerIds`/`opponentsIds` in the `/status` payload.
-
-Once you add your secrets and encrypted payload, the server will automatically trigger your workflow after each turn, allowing you to keep your repository public (free GitHub Actions) while keeping your strategy private.
