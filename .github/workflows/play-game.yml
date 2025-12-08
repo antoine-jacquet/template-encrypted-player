@@ -52,7 +52,7 @@ jobs:
           GAME_TOKEN: ${{ secrets.GAME_TOKEN }}
           PLAYER_NAME: ${{ secrets.PLAYER_NAME }}
           GITHUB_REPO: ${{ github.repository }}
-        run: python bot.py run
+        run: python bot.py
 
       - name: Clean plaintext strategy
         if: always()
