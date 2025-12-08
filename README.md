@@ -21,21 +21,15 @@ Use this template when you want a public repository (free GitHub Actions minutes
    a. **Edit your strategy:**
       - Edit `strategy.py` with your strategy logic
    
-   b. **Encrypt your strategy:**
+   b. **Encrypt your strategy and add GPG secrets:**
       - Run: `python scripts/setup_encryption.py`
-      - When prompted, enter a passphrase (remember it - you'll need it for step 3c)
-      - This creates:
-        - `strategy.py.gpg` (encrypted file)
-        - `private-key.asc` (GPG private key)
-        - `private-key.asc.b64` (for GitHub secret)
-   
-   c. **Add GPG secrets to GitHub:**
+      - When prompted, enter a passphrase
       - In **Settings → Secrets and variables → Actions**, add:
         - `GPG_PRIVATE_KEY_B64` – paste the contents of `private-key.asc.b64`
-        - `GPG_PASSPHRASE` – the passphrase you entered in step 3b
-      - **Important:** Delete `private-key.asc` and `private-key.asc.b64` from your local machine after copying.
+        - `GPG_PASSPHRASE` – the passphrase you entered above
+      - Delete `private-key.asc` and `private-key.asc.b64` from your local machine
    
-   d. **Commit encrypted strategy:**
+   c. **Commit encrypted strategy:**
       - Add only the encrypted file: `git add strategy.py.gpg`
       - Commit and push: `git commit -m "Add encrypted strategy" && git push`
       - **Important:** Only commit `strategy.py.gpg` - do NOT commit changes to `strategy.py`
