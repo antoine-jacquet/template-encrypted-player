@@ -6,3 +6,5 @@ private-key.asc.b64
 .venv/
 __pycache__/
 
+strategy.py
+
