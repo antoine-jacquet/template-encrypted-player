@@ -1,51 +1,19 @@
 #!/usr/bin/env python3
-"""Your encrypted strategy - edit this file, then encrypt it with setup_encryption.py"""
-
-from typing import Any, Dict
-
+# Edit this file with your strategy, then encrypt with: python scripts/setup_encryption.py
 import numpy as np
 
 
-def strategy(state: Dict[str, Any]) -> Dict[str, Dict[str, int]]:
-    """
-    Your strategy function.
-    
-    Args:
-        state: Game state dictionary containing:
-            - playerIds: list of all player IDs
-            - myPlayerId: your player ID
-            - opponentsIds: list of opponent IDs
-            - state: list of completed turns (history)
-            - turnId: current turn number
-    
-    Returns:
-        Dictionary with 'shoot' and 'keep' maps:
-        {
-            "shoot": {opponent_id: direction (0-2), ...},
-            "keep": {opponent_id: direction (0-2), ...}
-        }
-        
-    Directions:
-        - 0 = left
-        - 1 = center
-        - 2 = right
-    """
-    my_id = state.get("myPlayerId")
+def strategy(state):
     opponents = state.get("opponentsIds") or []
-
-    if not my_id or not opponents:
+    if not opponents:
         return {"shoot": {}, "keep": {}}
 
-    # Example: random strategy
-    # Replace this with your actual strategy logic
-    # You can analyze state.get("state", []) to see previous turns
-    # and make decisions based on opponent behavior
-    
+    # Random baseline — replace with your logic
     shoot = np.random.randint(0, 3, len(opponents)).tolist()
     keep = np.random.randint(0, 3, len(opponents)).tolist()
 
     return {
-        "shoot": {pid: int(direction) for pid, direction in zip(opponents, shoot)},
-        "keep": {pid: int(direction) for pid, direction in zip(opponents, keep)},
+        "shoot": {pid: d for pid, d in zip(opponents, shoot)},
+        "keep": {pid: d for pid, d in zip(opponents, keep)},
     }
 
