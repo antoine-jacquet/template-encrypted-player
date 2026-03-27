@@ -16,3 +16,8 @@ strategy.py
 
 .DS_Store
 
+
+# encryption key
+
+key.txt
+
