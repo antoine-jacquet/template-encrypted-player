@@ -9,15 +9,14 @@ private-key.asc.b64
 .venv/
 __pycache__/
 
+# strategy should remain hidden
 strategy.py
 
 
 # macOS
-
 .DS_Store
 
 
 # encryption key
-
 key.txt
 
