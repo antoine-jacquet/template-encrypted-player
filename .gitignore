@@ -11,3 +11,8 @@ __pycache__/
 
 strategy.py
 
+
+# macOS
+
+.DS_Store
+
